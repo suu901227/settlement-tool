@@ -7,16 +7,14 @@ from io import BytesIO
 
 # ===================== 新增：密码验证 =====================
 def check_password():
-    """验证密码，只有输入正确才能继续使用"""
     def password_entered():
-        if st.session_state["password"] == "WXqwer1234@"
+        if st.session_state["password"] == "WXqwer1234@":
             st.session_state["password_correct"] = True
-            del st.session_state["password"]  # 输入正确后删除密码
+            del st.session_state["password"]
         else:
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        # 第一次访问，显示密码输入框
         st.title("🔒 请输入访问密码")
         st.text_input(
             "密码",
@@ -26,7 +24,6 @@ def check_password():
         )
         return False
     elif not st.session_state["password_correct"]:
-        # 密码错误，重新显示输入框
         st.title("🔒 请输入访问密码")
         st.text_input(
             "密码",
@@ -37,10 +34,8 @@ def check_password():
         st.error("密码错误，请重试！")
         return False
     else:
-        # 密码正确，进入工具页面
         return True
 
-# 验证密码，不通过则终止
 if not check_password():
     st.stop()
 
